@@ -9,18 +9,6 @@ public class CurrentAccount extends Account {
 
     }
 
-    //account must have a minimum balance of 10
-    @Override
-    public void withDraw(double amount) {
-        if (balance - amount < minBalance) {
-            System.out.println("Withdrawal denied! Minimum balance of " + minBalance + " must be maintained.");
-        } else {
-            balance -= amount;
-            System.out.println("Withdrawal successful! New balance: " + balance);
-        }
-    }
-
-
     
 }
 

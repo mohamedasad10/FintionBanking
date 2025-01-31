@@ -1,3 +1,7 @@
+
+
+import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,10 +11,17 @@ public class Account {
     String holderName;
     double balance ;
 
-    public Account(int accountNumber,String holderName,double balance){
+    ArrayList<Transaction> transactions; // Add a list of transactions to the account
+
+
+
+    //Constructor
+    public Account(int accountNumber,String holderName,double balance){ 
         this.accountNumber = accountNumber;
         this.holderName = holderName;
-        this.balance = balance;
+        this.balance = balance; 
+        this.transactions = new ArrayList<>(); //new ArrayList because this ensures that each account has its own transaction history as soon as it's created.
+
     }
 
     // Getters for accessing private fields
@@ -28,9 +39,15 @@ public class Account {
 
     
 
+    //Check Balance
+
     public void checkBalance(){
         System.out.println("Bank Balance: " + balance);
     }
+
+
+
+    //Deposit Money
 
     public void deposit(double depositAmount){
         balance += depositAmount;
@@ -38,11 +55,25 @@ public class Account {
         System.out.println("Your new balance is: " + balance);
     }
 
-    public void withDraw(double withdrawalAmount){
-        balance -= withdrawalAmount;
-        System.out.println("You have withdrew " + withdrawalAmount + " from your bank account.");
-        System.out.println("Your remaining balance is: " + balance);
+
+    //Withdraw Money
+    public void withDraw(double withdrawalAmount) {
+        if (balance >= withdrawalAmount) { // Check if there are sufficient funds
+            balance -= withdrawalAmount;
+            System.out.println("You have withdrawn " + withdrawalAmount + " from your bank account.");
+            System.out.println("Your remaining balance is: " + balance);
+
+            // Add withdrawal transaction
+            String transactionDate = LocalDate.now().toString();
+            Transaction transaction = new Transaction(withdrawalAmount, "Withdrawal", transactionDate, "Success", accountNumber, -1);
+            transactions.add(transaction);
+
+        } else {
+            System.out.println("Insufficient funds. Withdrawal denied.");
+        } 
     }
+
+    //Transfer Money
 
     public void transfer(Scanner scanner, ArrayList<Account> accounts) {
         System.out.println("Transfer Money");
@@ -117,6 +148,25 @@ public class Account {
                     break;
                 }
             }
+
+            
+            // Add the transaction to the transaction history
+            Transaction transaction = new Transaction(transferAmount, "Transfer", "2021-09-01", "Success", sourceAccount, destinationAccount);
+            transactions.add(transaction);
+        }
+
+    }
+
+    //View Transactions
+    public void viewTransactionHistory() {
+        System.out.println("Transaction History: ");
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions found.");
+        } else {
+            for (Transaction transaction : transactions) {
+                System.out.println(transaction);
+            }
+
         }
     }
     
