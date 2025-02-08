@@ -1,6 +1,6 @@
 # BankingApp
 ## Overview
-**BankingApp** is a simple yet functional command-line banking system built in Java.  
+**FintionBanking** is a simple yet functional command-line banking system built in Java.  
 It allows users to:
 - Create accounts  
 - Deposit and withdraw funds  
