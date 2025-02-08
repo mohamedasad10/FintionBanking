@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Money - Fintion Bank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .form-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .btn {
+            background: #ffc107;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            background: #e0a800;
+            transform: translateY(-3px);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        form label {
+            font-size: 14px;
+            color: #ddd;
+            text-align: left;
+        }
+
+        form input {
+            padding: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        form input:focus {
+            border-color: #ffc107;
+            outline: none;
+        }
+
+        form button {
+            padding: 12px;
+            background: #ffc107;
+            border: none;
+            border-radius: 8px;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        form button:hover {
+            background: #667eea;
+            transform: translateY(-3px);
+        }
+
+        #withdrawMessage {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ffc107;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <button onclick="window.history.back()" class="btn">Go Back</button>
+        <h2>Withdraw Money</h2>
+        <form id="withdrawForm" method="POST">
+            <label for="withdrawAmount">Amount:</label>
+            <input type="number" id="withdrawAmount" name="withdrawAmount" min="1" placeholder="Enter amount to withdraw" required>
+            <button type="submit">Withdraw</button>
+        </form>
+        <div id="withdrawMessage"></div>
+    </div>
+
+    <script>
+        document.getElementById("withdrawForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let amount = document.querySelector("input[name='withdrawAmount']").value;
+            
+            if (amount <= 0) {
+                document.getElementById('withdrawMessage').innerText = "Please enter a valid amount greater than zero.";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('amount', amount);
+
+            fetch('withdraw.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('withdrawMessage').innerText = data;
+            })
+            .catch(error => {
+                document.getElementById('withdrawMessage').innerText = "There was an error processing your request.";
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
