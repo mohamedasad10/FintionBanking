@@ -41,15 +41,24 @@ To run this project locally, follow these steps:
    - Download and install XAMPP from [here](https://www.apachefriends.org/download.html).
    - Start the Apache and MySQL servers in the XAMPP control panel.
 
-3. **Create the database**:
+3. **Move the project to the htdocs folder:**
+Copy or move the fintion-banking-app folder into the htdocs directory of your XAMPP installation. This is usually located at:
+
+C:\xampp\htdocs\
+
+So the full path should look like:
+
+C:\xampp\htdocs\fintion-banking-app\
+
+4. **Create the database**:
    - Open phpMyAdmin (accessed via `localhost/phpmyadmin`).
    - Create a new database named `fintion_banking`.
    - Import the `fintion_banking.sql` file (found in the project root) to set up the tables.
 
-4. **Update database credentials**:
+5. **Update database credentials**:
    - Open `db.php` and set your MySQL database credentials (host, username, password, database name).
 
-5. **Run the application**:
+6. **Run the application**:
    - Open your browser and navigate to `http://localhost/fintion-banking-app`.
 
 ## Usage
