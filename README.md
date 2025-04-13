@@ -2,6 +2,9 @@
 
 Fintion Banking App is a simple banking web application that allows users to perform various banking actions like viewing their account details, making transactions, and more. This app provides a user-friendly interface to simulate real-world banking operations.
 
+![Alt Text](Images/FintionHomePage.png)
+
+
 ## Features
 
 - **Account Overview**: View account balance, account number, and user details.
